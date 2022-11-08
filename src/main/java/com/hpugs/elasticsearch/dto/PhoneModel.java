@@ -1,14 +1,39 @@
 package com.hpugs.elasticsearch.dto;
 
+import com.hpugs.elasticsearch.EnumEsConst;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.InnerField;
+import org.springframework.data.elasticsearch.annotations.MultiField;
+
+@Document(indexName = EnumEsConst.PHONE_INDEX_NAME)
 public class PhoneModel {
 
+    @Id
+    private String id;
+
+    @MultiField(mainField = @Field(type= FieldType.Text,analyzer = "ik_max_word",searchAnalyzer = "ik_max_word"),
+            otherFields = @InnerField(type=FieldType.Text,suffix = "pinyin",analyzer = "pinyin"))
     private String title;
 
+    @Field(type=FieldType.Text)
     private String category;
 
+    @Field(type=FieldType.Text)
     private String images;
 
+    @Field(type=FieldType.Text)
     private String prices;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
