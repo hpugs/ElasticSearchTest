@@ -1,0 +1,46 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.13'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'java'
+}
+
+group = 'com.hpugs.elasticsearch'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    maven {
+        url 'https://maven.aliyun.com/repository/public'
+    }
+    maven {
+        credentials {
+            username '5f87b5f7cd2214ba0eac47eb'
+            password 't2fr3sx7yIE3'
+        }
+        url 'https://packages.aliyun.com/maven/repository/2041990-release-QcCqWw/'
+    }
+    maven {
+        credentials {
+            username '5f87b5f7cd2214ba0eac47eb'
+            password 't2fr3sx7yIE3'
+        }
+        url 'https://packages.aliyun.com/maven/repository/2041990-snapshot-j7bhHR/'
+    }
+    mavenLocal()
+}
+
+dependencies {
+    implementation ('org.springframework.boot:spring-boot-starter-web'){
+        exclude group: 'org.slf4j',  module: 'slf4j-log4j12'
+    }
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    compileOnly("com.hpugs:base-common:1.0.0-RELEASE")
+
+    compileOnly("org.springframework.boot:spring-boot-starter-data-elasticsearch:2.2.4.RELEASE")
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
