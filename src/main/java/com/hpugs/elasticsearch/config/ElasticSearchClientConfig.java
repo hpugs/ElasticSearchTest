@@ -43,7 +43,7 @@ public class ElasticSearchClientConfig {
     private String password;
 
     @Bean
-    public RestHighLevelClient restHighLevelClient(){
+    public RestHighLevelClient restHighLevelClient() {
         // 初始化 RestClient, hostName 和 port 填写集群的内网 VIP 地址与端口
         RestClientBuilder restClientBuilder = RestClient.builder(new HttpHost(hostname, port, "http"))
                 .setRequestConfigCallback(builder -> {
@@ -62,7 +62,7 @@ public class ElasticSearchClientConfig {
                         .build()));
 
         // 设置认证信息
-        if(StringUtils.isNotEmpty(username)&&StringUtils.isNotEmpty(password)) {
+        if (StringUtils.isNotEmpty(username) && StringUtils.isNotEmpty(password)) {
             //如果没配置密码就可以不用下面这两部
             final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
             credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(username, password));

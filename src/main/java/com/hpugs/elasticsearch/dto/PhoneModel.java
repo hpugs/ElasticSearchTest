@@ -14,17 +14,17 @@ public class PhoneModel {
     @Id
     private String id;
 
-    @MultiField(mainField = @Field(type= FieldType.Text,analyzer = "ik_max_word",searchAnalyzer = "ik_max_word"),
-            otherFields = @InnerField(type=FieldType.Text,suffix = "pinyin",analyzer = "pinyin"))
+    @MultiField(mainField = @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_max_word"),
+            otherFields = @InnerField(type = FieldType.Text, suffix = "pinyin", analyzer = "pinyin"))
     private String title;
 
-    @Field(type=FieldType.Text)
+    @Field(type = FieldType.Text)
     private String category;
 
-    @Field(type=FieldType.Text)
+    @Field(type = FieldType.Text)
     private String images;
 
-    @Field(type=FieldType.Text)
+    @Field(type = FieldType.Text)
     private String prices;
 
     public String getId() {

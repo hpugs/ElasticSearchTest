@@ -39,17 +39,17 @@ public class ElasticSearchService {
     }
 
     public Result save(List<PhoneModel> list) {
-        try{
-            if(!CollectionUtil.isEmpty(list)){
-                if(!elasticsearchTemplate.indexOps(PhoneModel.class).exists()){
+        try {
+            if (!CollectionUtil.isEmpty(list)) {
+                if (!elasticsearchTemplate.indexOps(PhoneModel.class).exists()) {
                     IndexOperations indexOps = elasticsearchTemplate.indexOps(PhoneModel.class);
                     indexOps.create();
-                    Document document= indexOps.createMapping(PhoneModel.class);
+                    Document document = indexOps.createMapping(PhoneModel.class);
                     indexOps.putMapping(document);
                 }
                 elasticsearchTemplate.save(list);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             return Result.buildFail(EnumError.PARAMS_ERROR);
         }
         return Result.buildSuccess();
