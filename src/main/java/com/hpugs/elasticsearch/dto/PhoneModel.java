@@ -1,6 +1,6 @@
 package com.hpugs.elasticsearch.dto;
 
-import com.hpugs.elasticsearch.EnumEsConst;
+import com.hpugs.elasticsearch.enums.EnumEsConst;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;

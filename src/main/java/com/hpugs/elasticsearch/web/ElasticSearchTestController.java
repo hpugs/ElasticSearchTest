@@ -3,16 +3,10 @@ package com.hpugs.elasticsearch.web;
 import com.hpugs.base.common.result.Result;
 import com.hpugs.elasticsearch.dto.PhoneModel;
 import com.hpugs.elasticsearch.service.ElasticSearchService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 @RestController
 public class ElasticSearchTestController {
@@ -21,15 +15,23 @@ public class ElasticSearchTestController {
     private ElasticSearchService elasticSearchService;
 
     @GetMapping("/search")
-    public Result search(@RequestParam("title") String title) {
+    public Result search(@RequestParam(value = "title", required = false) String title) {
         return elasticSearchService.search(title);
     }
 
     @PostMapping("/save")
     public Result save(@RequestBody PhoneModel phoneModel) {
-        List<PhoneModel> phoneModels = new ArrayList<>();
-        phoneModels.add(phoneModel);
-        return elasticSearchService.save(phoneModels);
+        return elasticSearchService.save(Collections.singletonList(phoneModel));
+    }
+
+    @GetMapping("/delete")
+    public Result delete(@RequestParam String id) {
+        return elasticSearchService.delete(id);
+    }
+
+    @PostMapping("/update")
+    public Result update(@RequestBody PhoneModel phoneModel) {
+        return elasticSearchService.update(phoneModel);
     }
 
 }

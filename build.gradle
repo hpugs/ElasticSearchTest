@@ -39,6 +39,7 @@ dependencies {
     compileOnly("com.hpugs:base-common:1.0.0-RELEASE")
 
     compileOnly("org.springframework.boot:spring-boot-starter-data-elasticsearch:2.2.4.RELEASE")
+
 }
 
 tasks.named('test') {
