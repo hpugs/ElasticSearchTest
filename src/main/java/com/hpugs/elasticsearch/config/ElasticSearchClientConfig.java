@@ -36,10 +36,10 @@ public class ElasticSearchClientConfig {
     @Value("${elasticsearch.connectionRequestTimeout}")
     private Integer connectionRequestTimeout;
 
-    @Value("${elasticsearch.username}")
+    @Value("${elasticsearch.username:}")
     private String username;
 
-    @Value("${elasticsearch.password}")
+    @Value("${elasticsearch.password:}")
     private String password;
 
     @Bean

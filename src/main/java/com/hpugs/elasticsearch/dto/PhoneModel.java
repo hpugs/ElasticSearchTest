@@ -14,8 +14,11 @@ public class PhoneModel {
     @Id
     private String id;
 
-    @MultiField(mainField = @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_max_word"),
-            otherFields = @InnerField(type = FieldType.Text, suffix = "pinyin", analyzer = "pinyin"))
+    // ik_max_word 分词器  对中文进行分词  对英文进行分词  对英文进行拼音分词
+    // 配置分词器，需要现在ES安装分词器
+//    @MultiField(mainField = @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_max_word"),
+//            otherFields = @InnerField(type = FieldType.Text, suffix = "pinyin", analyzer = "pinyin"))
+    @Field(type = FieldType.Keyword)
     private String title;
 
     @Field(type = FieldType.Text)
