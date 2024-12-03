@@ -14,21 +14,26 @@ public class PhoneModel {
     @Id
     private String id;
 
-    // ik_max_word 分词器  对中文进行分词  对英文进行分词  对英文进行拼音分词
-    // 配置分词器，需要现在ES安装分词器
-//    @MultiField(mainField = @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_max_word"),
-//            otherFields = @InnerField(type = FieldType.Text, suffix = "pinyin", analyzer = "pinyin"))
-    @Field(type = FieldType.Keyword)
+    // ik_max_word 分词器  对中文进行分词  对英文进行分词  对中文进行拼音分词
+    // 配置分词器，需要先在ES安装分词器：IK、pinyin
+    @MultiField(mainField = @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_max_word"),
+            otherFields = @InnerField(type = FieldType.Keyword, suffix = "pinyin", analyzer = "pinyin", searchAnalyzer = "pinyin"))
     private String title;
 
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Keyword)
     private String category;
 
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Keyword)
     private String images;
 
-    @Field(type = FieldType.Text)
-    private String prices;
+    @Deprecated
+    private Double prices;
+
+    @Field(type = FieldType.Double)
+    private Double price;
+
+    @Field(type = FieldType.Double)
+    private Double salePrice;
 
     public String getId() {
         return id;
@@ -62,11 +67,27 @@ public class PhoneModel {
         this.images = images;
     }
 
-    public String getPrices() {
+    public Double getPrices() {
         return prices;
     }
 
-    public void setPrices(String prices) {
+    public void setPrices(Double prices) {
         this.prices = prices;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Double getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(Double salePrice) {
+        this.salePrice = salePrice;
     }
 }

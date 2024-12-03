@@ -19,7 +19,7 @@ public class ElasticSearchTestController {
     private PhoneModleService phoneModleService;
 
     @GetMapping("/search")
-    public Result search(@RequestParam(value = "title", required = false) String title) {
+    public Result<List<PhoneModel>> search(@RequestParam(value = "title", required = false) String title) {
         return elasticSearchService.search(title);
     }
 

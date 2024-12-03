@@ -21,6 +21,7 @@ import org.springframework.util.ObjectUtils;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ElasticSearchService {
@@ -28,7 +29,7 @@ public class ElasticSearchService {
     @Resource
     private ElasticsearchOperations elasticsearchTemplate;
 
-    public Result search(String title) {
+    public Result<List<PhoneModel>> search(String title) {
         //IndexCoordinates.of("steamed_fish_auction")获取索引定位
         NativeSearchQuery query = new NativeSearchQueryBuilder()
                 .withQuery(QueryBuilders.matchQuery("title", title))
@@ -36,7 +37,7 @@ public class ElasticSearchService {
 
         SearchHits<PhoneModel> searchHits = elasticsearchTemplate.search(query, PhoneModel.class, IndexCoordinates.of(EnumEsConst.PHONE_INDEX_NAME));
         searchHits.getSearchHits().stream().map(SearchHit::getContent).map(JSONObject::toJSONString).forEach(System.out::println);
-        return Result.buildSuccess(searchHits.getSearchHits().stream().map(SearchHit::getContent));
+        return Result.buildSuccess(searchHits.getSearchHits().stream().map(SearchHit::getContent).collect(Collectors.toList()));
     }
 
     public Result save(List<PhoneModel> list) {
@@ -54,7 +55,7 @@ public class ElasticSearchService {
             }
             elasticsearchTemplate.save(list);
         } catch (Exception e) {
-            return Result.buildFail(EnumError.PARAMS_ERROR);
+            return Result.buildFail(EnumError.NET_ERROR);
         }
         return Result.buildSuccess();
     }
